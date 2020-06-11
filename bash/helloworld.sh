@@ -1,3 +1,4 @@
 #!/bin/bash
 echo "Hello World!"
-exit
+echo "I am process # $$"
+# lab 1
