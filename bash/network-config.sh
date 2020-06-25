@@ -75,6 +75,19 @@
 #   External IP     : $myExternalIP
 #   External Name   : $myExternalName
 
+
+
+
+hostname=$(hostname)
+ipadd=$(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}')|awk '/inet /{gsub(/\/.*/,"");print $2}')
+lanhostname=$(getent hosts $ipadd | awk '{print $2}')
+extip=$(curl -s icanhazip.com)
+extname=$(getent hosts $extip | awk '{print $2}')
+###############################################################################################################################
+# Task 2: Add variables for the default router's name and IP address.
+#         Add a name for the router's IP address to your /etc/hosts file.
+routeradd=$(ip r | awk '/via /{gsub(/\/.*/,"");print $3}')
+routername=$(getent hosts $routeradd | awk '{print $2}')
 cat <<EOF
 Hostname        : $(hostname)
 LAN Address     : $(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}')|awk '/inet /{gsub(/\/.*/,"");print $2}')
@@ -82,4 +95,3 @@ LAN Hostname    : $(getent hosts $(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print 
 External IP     : $(curl -s icanhazip.com)
 External Name   : $(getent hosts $(curl -s icanhazip.com) | awk '{print $2}')
 EOF
-
