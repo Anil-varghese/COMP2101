@@ -7,8 +7,7 @@
 #    the sum of the 3 numbers with a label
 #    the product of the 3 numbers with a label
 
-echo "Enter first number"
-read firstnum
+read -p "Enter first number" firstnum
 
 echo "Enter second number"
 read secondnum
